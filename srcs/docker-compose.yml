@@ -1,4 +1,16 @@
 services:
+
+ nginx:
+  build: ./requirements/nginx
+  container_name: nginx
+  restart: always
+  ports:
+   - "443:443"
+  volumes:
+   - static_website:/var/www/html
+  networks:
+   - inception_net
+
  mariadb:
   build: ./requirements/mariadb
   container_name: mariadb
@@ -14,6 +26,7 @@ services:
 
 volumes:
  mariadb_data:
+ static_website:
 
 networks:
  inception_net:
