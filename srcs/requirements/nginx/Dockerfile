@@ -1,15 +1,24 @@
-FROM alpine:3.18
+FROM alpine:3.20
 
+# install nginx and ssl
 RUN apk update && apk add --no-cache nginx openssl
 
 # create certificate directory
-RUN mkdir -p /etc/nginx/ssl
+RUN mkdir -p /run/nginx/ /etc/nginx/ssl /var/www/html
 
-COPY conf/nginx.conf /etc/nginx/http.d/nginx.conf
+#create certificate
+RUN openssl req -newkey rsa:2048 -x509 -sha256 -days 365 -nodes \
+ -out /etc/nginx/ssl/nginx.crt \
+ -keyout /etc/nginx/ssl/nginx.key \
+ -subj "/C=FI/ST=Helsinki/L=Helsinki/O=42/OU=Hive/CN=${DOMAIN_NAME}"
 
-# delete/modify this line, it's a temporary solution while word press is not created
-RUN mkdir -p /var/www/html && echo '<h1>This is temporary!!!</h1>' > /var/www/html/index.html
-COPY tools/script.sh /script.sh
-RUN chmod +x /script.sh && /script.sh
+# Add a new user within the container
+RUN adduser -D -H -s /sbin/nologin -g www-data -G www-data www-data
+
+COPY conf/nginx.conf /etc/nginx/nginx.conf
+RUN chmod 644 /etc/nginx/nginx.conf
+
+COPY ./tools/script.sh /script.sh
+RUN chmod +x /script.sh
 
 CMD ["nginx", "-g", "daemon off;"]

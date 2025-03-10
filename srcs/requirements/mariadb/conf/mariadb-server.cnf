@@ -1,10 +1,15 @@
+[client]
+port = 3306
+socket = /var/run/mysqld/mysqld.sock
+
 [mysqld]
-
-bind-address = 0.0.0.0
-
-max_connection = 100
-
-innodb_buffer_pool_size = 128M
-
+datadir = /var/lib/mysql
+basedir = /usr
+socket = /var/run/mysqld/mysqld.sock
+port = 3306
+user = mysql
+pid-file    = /var/run/mysqld/mariadb.pid
+bind_address = *
+max_connections = 100
 log_error = /var/log/mysql/error.log
-
+skip-networking = false
