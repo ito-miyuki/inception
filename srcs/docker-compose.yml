@@ -15,7 +15,6 @@ volumes:
 
 networks:
  inception_net:
-#  name: inception_net
   driver: bridge
 
 services:

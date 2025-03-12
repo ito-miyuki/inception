@@ -9,10 +9,10 @@ attempts=0
 while ! mariadb -h"$MYSQL_HOST" -u"$WP_DB_USER" -p"$WP_DB_PWD" "$WP_DB_NAME" &>/dev/null; do
  attempts=$((attempts + 1))
  echo "MariaDB unavailable. Attempt $attempts: Retrying in 5  seconds..."
-# if [ $attempts -ge 12 ]; then
-#  echo "Max attempts reached. Could not connect to MariaDB."
-#  exit 1
-# fi
+ if [ $attempts -ge 12 ]; then
+  echo "Max attempts reached. Could not connect to MariaDB."
+  exit 1
+ fi
  sleep 5
 done
 echo "MariaDB connection established!"
