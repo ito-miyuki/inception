@@ -1,5 +1,6 @@
 FROM alpine:3.20
 
+# create system group and add nginx for running web server safely, to prevent container from running as root
 RUN addgroup -S nginx && \
 	adduser -S -G nginx -g nginx nginx
 
@@ -18,6 +19,7 @@ RUN apk update && apk add --no-cache \
 
 EXPOSE 9000
 
+# create this folder to store the data
 RUN mkdir -p /run/php/ /var/www/html
 
 COPY conf/www.conf /etc/php83/php-fpm.d/www.conf

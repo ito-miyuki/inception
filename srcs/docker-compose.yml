@@ -1,5 +1,6 @@
 volumes:
  wordpress:
+   name: wordpress
    driver: local
    driver_opts:
     type: none
@@ -7,6 +8,7 @@ volumes:
     device: /home/mito/data/wordpress
 
  mariadb:
+   name: mariadb
    driver: local
    driver_opts:
     type: none
@@ -54,7 +56,7 @@ services:
   restart: always
   image: wordpress:mito
   expose:
-   - "9000"
+   - 9000
   env_file:
    - .env
   volumes:

@@ -25,7 +25,8 @@ DELETE FROM mysql.db WHERE Db='test';
 # restrict root access to localhost for security
 DELETE FROM mysql.user WHERE User='root' AND Host NOT IN ('localhost', '127.0.0.1', '::1');
 
-#Set root password
+# create root user (local only)
+CREATE USER IF NOT EXISTS 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';
 ALTER USER 'root'@'localhost' IDENTIFIED BY '$MYSQL_ROOT_PASSWORD';
 
 #Create WordPress database
