@@ -1,4 +1,4 @@
-FROM alpine:3.20
+FROM alpine:3.20.6
 
 # install nginx and ssl
 RUN apk update && apk add --no-cache nginx openssl
@@ -24,5 +24,4 @@ COPY ./tools/script.sh /script.sh
 RUN chmod +x /script.sh
 
 # start nginx when the container runs
-#CMD ["nginx", "-g", "daemon off;"]
 ENTRYPOINT ["/script.sh"]

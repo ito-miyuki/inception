@@ -1,4 +1,4 @@
-FROM alpine:3.20
+FROM alpine:3.20.6
 
 # create system group and add nginx for running web server safely, to prevent container from running as root
 RUN addgroup -S nginx && \

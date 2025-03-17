@@ -17,11 +17,6 @@ while ! mariadb -h"$MYSQL_HOST" -u"$WP_DB_USER" -p"$WP_DB_PWD" "$WP_DB_NAME" &>/
 done
 echo "MariaDB connection established!"
 
-# show database
-mariadb -h$MYSQL_HOST -u$WP_DB_USER -p$WP_DB_PWD $WP_DB_NAME << EOF
-SHOW DATABASES;
-EOF
-
 # set working directory
 cd /var/www/html/
 
