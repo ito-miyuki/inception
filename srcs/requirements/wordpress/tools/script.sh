@@ -76,4 +76,5 @@ wp rewrite flush --allow-root
 chown -R nginx:nginx /var/www/html/
 chmod -R 755 /var/www/html/
 
+echo "Starting Wordpress..."
 exec php-fpm83 -F
